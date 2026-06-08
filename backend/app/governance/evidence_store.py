@@ -38,3 +38,20 @@ def list_evidence_records() -> list[dict]:
         )
 
     return records
+
+
+def get_evidence_record(run_id: str) -> dict:
+    evidence_path = EVIDENCE_DIR / f"{run_id}.json"
+
+    if not evidence_path.exists():
+        return {
+            "found": False,
+            "run_id": run_id,
+            "error": "Evidence record not found",
+        }
+
+    payload = json.loads(evidence_path.read_text(encoding="utf-8"))
+    payload["found"] = True
+    payload["path"] = str(evidence_path)
+
+    return payload
