@@ -12,11 +12,18 @@ function App() {
   const [selected, setSelected] = useState(null);
   const [question, setQuestion] = useState("Can staff include patient identifiers in AI prompts?");
   const [isRunning, setIsRunning] = useState(false);
+  const [analytics, setAnalytics] = useState(null);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
     const data = await response.json();
     setRecords(data.records || []);
+  }
+
+  async function loadAnalytics() {
+    const response = await fetch(`${API_BASE}/governance/analytics`);
+    const data = await response.json();
+    setAnalytics(data);
   }
 
   async function loadDetail(runId) {
@@ -35,6 +42,7 @@ function App() {
 
     await loadDetail(selected.run_id);
     await loadRecords();
+    await loadAnalytics();
   }
 
   async function runEvaluation(event) {
@@ -52,6 +60,7 @@ function App() {
       const record = await response.json();
       setSelected(record);
       await loadRecords();
+      await loadAnalytics();
     } finally {
       setIsRunning(false);
     }
@@ -59,6 +68,7 @@ function App() {
 
   useEffect(() => {
     loadRecords();
+    loadAnalytics();
   }, []);
 
   const metrics = useMemo(() => {
@@ -106,19 +116,50 @@ function App() {
       <section className="metrics">
         <div className="metricCard">
           <span>Total Runs</span>
-          <strong>{metrics.total}</strong>
+          <strong>{analytics?.total_runs ?? metrics.total}</strong>
         </div>
         <div className="metricCard">
-          <span>Approved</span>
-          <strong>{metrics.approved}</strong>
+          <span>Approval Rate</span>
+          <strong>{Math.round((analytics?.rates?.approval_rate ?? 0) * 100)}%</strong>
+        </div>
+        <div className="metricCard">
+          <span>Avg Groundedness</span>
+          <strong>{analytics?.averages?.groundedness ?? "0.00"}</strong>
         </div>
         <div className="metricCard">
           <span>High Risk</span>
-          <strong>{metrics.highRisk}</strong>
+          <strong>{analytics?.risk_distribution?.high ?? metrics.highRisk}</strong>
         </div>
-        <div className="metricCard">
-          <span>Pending Review</span>
-          <strong>{metrics.pending}</strong>
+      </section>
+
+      <section className="analyticsGrid">
+        <div className="analyticsCard">
+          <h3>Review Status</h3>
+          <p>Approved: {analytics?.review_status?.approved ?? 0}</p>
+          <p>Rejected: {analytics?.review_status?.rejected ?? 0}</p>
+          <p>Escalated: {analytics?.review_status?.escalated ?? 0}</p>
+          <p>Pending: {analytics?.review_status?.pending ?? 0}</p>
+        </div>
+
+        <div className="analyticsCard">
+          <h3>Risk Distribution</h3>
+          <p>Low: {analytics?.risk_distribution?.low ?? 0}</p>
+          <p>Medium: {analytics?.risk_distribution?.medium ?? 0}</p>
+          <p>High: {analytics?.risk_distribution?.high ?? 0}</p>
+        </div>
+
+        <div className="analyticsCard">
+          <h3>Policy Distribution</h3>
+          <p>Pass: {analytics?.policy_distribution?.pass ?? 0}</p>
+          <p>Warn: {analytics?.policy_distribution?.warn ?? 0}</p>
+          <p>Fail: {analytics?.policy_distribution?.fail ?? 0}</p>
+        </div>
+
+        <div className="analyticsCard">
+          <h3>Average Scores</h3>
+          <p>Groundedness: {analytics?.averages?.groundedness ?? 0}</p>
+          <p>Relevance: {analytics?.averages?.relevance ?? 0}</p>
+          <p>Citation Coverage: {analytics?.averages?.citation_coverage ?? 0}</p>
         </div>
       </section>
 
