@@ -9,3 +9,6 @@ build/
 
 # Runtime-generated evidence records
 evidence/runs/*.json
+
+# Runtime-generated auditor exports
+evidence/exports/*.json
