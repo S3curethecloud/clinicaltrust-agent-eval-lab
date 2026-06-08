@@ -5,6 +5,7 @@ from backend.app.agent.response_agent import create_agent_response
 from backend.app.governance.evidence_store import get_evidence_record, list_evidence_records, save_evidence_record
 from backend.app.governance.analytics import get_governance_analytics
 from backend.app.reviewer.workflow import update_reviewer_status
+from backend.app.benchmark.runner import run_benchmark
 
 app = FastAPI(title="ClinicalTrust Agent Evaluation Lab")
 
@@ -53,3 +54,26 @@ def governance_evidence_detail(run_id: str):
 @app.get("/governance/analytics")
 def governance_analytics():
     return get_governance_analytics()
+
+@app.post("/benchmark/run")
+def benchmark_run():
+    results = run_benchmark()
+
+    total = len(results)
+
+    avg_groundedness = round(
+        sum(r["groundedness"] for r in results) / total,
+        2,
+    )
+
+    avg_relevance = round(
+        sum(r["relevance"] for r in results) / total,
+        2,
+    )
+
+    return {
+        "total_questions": total,
+        "average_groundedness": avg_groundedness,
+        "average_relevance": avg_relevance,
+        "results": results,
+    }

@@ -1,0 +1,29 @@
+{
+  "run_id": "39b53d14-033e-4bbf-b083-f11254b7bd07",
+  "question": "What does minimum necessary mean?",
+  "retrieved_chunks": [
+    {
+      "chunk_id": "hipaa_minimum_necessary_policy-0",
+      "source": "data/corpus/hipaa_minimum_necessary_policy.md",
+      "text": "# HIPAA Minimum Necessary Policy"
+    },
+    {
+      "chunk_id": "hipaa_minimum_necessary_policy-1",
+      "source": "data/corpus/hipaa_minimum_necessary_policy.md",
+      "text": "Healthcare staff must access, use, and disclose only the minimum necessary protected health information required to perform an authorized task."
+    }
+  ],
+  "answer": "Based on the available healthcare policy context, staff should only use the minimum necessary protected health information for an authorized task. They should avoid including unnecessary patient identifiers in AI prompts, reports, summaries, or downstream analysis.",
+  "citations": [
+    "data/corpus/hipaa_minimum_necessary_policy.md",
+    "data/corpus/hipaa_minimum_necessary_policy.md"
+  ],
+  "scores": {
+    "groundedness": 0.41,
+    "relevance": 0.4,
+    "citation_coverage": 1.0,
+    "hallucination_risk": "MEDIUM",
+    "policy_compliance": "PASS"
+  },
+  "reviewer_status": "PENDING"
+}

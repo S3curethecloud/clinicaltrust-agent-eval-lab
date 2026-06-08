@@ -1,0 +1,35 @@
+{
+  "run_id": "528a88dd-0b53-4f48-9664-c116c30612e2",
+  "question": "Can staff include patient identifiers in AI prompts?",
+  "retrieved_chunks": [
+    {
+      "chunk_id": "hipaa_minimum_necessary_policy-2",
+      "source": "data/corpus/hipaa_minimum_necessary_policy.md",
+      "text": "Staff should not include unnecessary patient identifiers in internal summaries, AI prompts, reports, or downstream analysis."
+    },
+    {
+      "chunk_id": "hipaa_minimum_necessary_policy-1",
+      "source": "data/corpus/hipaa_minimum_necessary_policy.md",
+      "text": "Healthcare staff must access, use, and disclose only the minimum necessary protected health information required to perform an authorized task."
+    },
+    {
+      "chunk_id": "hipaa_minimum_necessary_policy-3",
+      "source": "data/corpus/hipaa_minimum_necessary_policy.md",
+      "text": "When using AI-assisted tools, users must avoid entering real patient records unless the tool has been approved for PHI processing."
+    }
+  ],
+  "answer": "Based on the available healthcare policy context, staff should only use the minimum necessary protected health information for an authorized task. They should avoid including unnecessary patient identifiers in AI prompts, reports, summaries, or downstream analysis.",
+  "citations": [
+    "data/corpus/hipaa_minimum_necessary_policy.md",
+    "data/corpus/hipaa_minimum_necessary_policy.md",
+    "data/corpus/hipaa_minimum_necessary_policy.md"
+  ],
+  "scores": {
+    "groundedness": 0.79,
+    "relevance": 0.75,
+    "citation_coverage": 1.0,
+    "hallucination_risk": "LOW",
+    "policy_compliance": "PASS"
+  },
+  "reviewer_status": "PENDING"
+}
