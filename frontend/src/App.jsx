@@ -292,9 +292,29 @@ function App() {
               <h3>Answer</h3>
               <p>{selected.answer}</p>
 
+              <h3>Governance Decision</h3>
+              <div className={`governanceDecision ${selected.governance_decision?.decision?.toLowerCase() || "warn"}`}>
+                <strong>{selected.governance_decision?.decision || "PENDING"}</strong>
+                <ul>
+                  {selected.governance_decision?.reasons?.map((reason) => (
+                    <li key={reason}>{reason}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {selected.retrieved_chunks?.length === 0 && (
+                <div className="noEvidenceWarning">
+                  ⚠ No policy evidence retrieved. Approval is blocked until grounded evidence is available.
+                </div>
+              )}
+
               <h3>Reviewer Actions</h3>
               <div className="reviewActions">
-                <button className="approve" onClick={() => updateReviewStatus("APPROVED")}>
+                <button
+                  className="approve"
+                  disabled={!selected.governance_decision?.approval_allowed}
+                  onClick={() => updateReviewStatus("APPROVED")}
+                >
                   Approve
                 </button>
                 <button className="reject" onClick={() => updateReviewStatus("REJECTED")}>

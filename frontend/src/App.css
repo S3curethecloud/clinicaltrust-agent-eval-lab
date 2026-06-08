@@ -646,3 +646,54 @@ small {
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+.governanceDecision {
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(8, 17, 31, 0.72);
+}
+
+.governanceDecision strong {
+  display: block;
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.governanceDecision ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #dbeafe;
+}
+
+.governanceDecision.pass {
+  border-color: rgba(74, 222, 128, 0.35);
+  background: rgba(22, 163, 74, 0.12);
+}
+
+.governanceDecision.warn,
+.governanceDecision.escalate {
+  border-color: rgba(251, 191, 36, 0.35);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.governanceDecision.block {
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.noEvidenceWarning {
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fde68a;
+  padding: 14px;
+  font-weight: 800;
+}
+
+.reviewActions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}

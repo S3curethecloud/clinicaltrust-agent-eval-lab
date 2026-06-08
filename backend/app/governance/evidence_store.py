@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from backend.app.governance.gates import evaluate_governance_decision
+
 from backend.app.schemas.evidence import EvidenceRecord
 
 
@@ -53,5 +55,6 @@ def get_evidence_record(run_id: str) -> dict:
     payload = json.loads(evidence_path.read_text(encoding="utf-8"))
     payload["found"] = True
     payload["path"] = str(evidence_path)
+    payload["governance_decision"] = evaluate_governance_decision(payload)
 
     return payload
