@@ -351,3 +351,45 @@ small {
     padding: 16px;
   }
 }
+
+.reviewActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reviewActions button {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 10px 15px;
+  transition: 0.18s ease;
+}
+
+.reviewActions button:hover {
+  transform: translateY(-1px);
+}
+
+.reviewActions .approve {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.22);
+}
+
+.reviewActions .reject {
+  background: linear-gradient(135deg, #991b1b, #dc2626);
+  box-shadow: 0 12px 28px rgba(220, 38, 38, 0.2);
+}
+
+.reviewActions .escalate {
+  background: linear-gradient(135deg, #92400e, #d97706);
+  box-shadow: 0 12px 28px rgba(217, 119, 6, 0.2);
+}
+
+@media (max-width: 560px) {
+  .reviewActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

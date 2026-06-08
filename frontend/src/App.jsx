@@ -23,6 +23,18 @@ function App() {
     setSelected(data);
   }
 
+  async function updateReviewStatus(status) {
+    if (!selected?.run_id) return;
+
+    await fetch(
+      `${API_BASE}/reviewer/status?run_id=${selected.run_id}&status=${status}`,
+      { method: "POST" }
+    );
+
+    await loadDetail(selected.run_id);
+    await loadRecords();
+  }
+
   useEffect(() => {
     loadRecords();
   }, []);
@@ -119,6 +131,19 @@ function App() {
 
               <h3>Answer</h3>
               <p>{selected.answer}</p>
+
+              <h3>Reviewer Actions</h3>
+              <div className="reviewActions">
+                <button className="approve" onClick={() => updateReviewStatus("APPROVED")}>
+                  Approve
+                </button>
+                <button className="reject" onClick={() => updateReviewStatus("REJECTED")}>
+                  Reject
+                </button>
+                <button className="escalate" onClick={() => updateReviewStatus("ESCALATED")}>
+                  Escalate
+                </button>
+              </div>
 
               <h3>Evaluation Scores</h3>
               <div className="scoreGrid">
