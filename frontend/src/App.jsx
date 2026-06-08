@@ -13,6 +13,8 @@ function App() {
   const [question, setQuestion] = useState("Can staff include patient identifiers in AI prompts?");
   const [isRunning, setIsRunning] = useState(false);
   const [analytics, setAnalytics] = useState(null);
+  const [benchmark, setBenchmark] = useState(null);
+  const [isBenchmarkRunning, setIsBenchmarkRunning] = useState(false);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -66,6 +68,22 @@ function App() {
     }
   }
 
+  async function runBenchmark() {
+    setIsBenchmarkRunning(true);
+
+    try {
+      const response = await fetch(`${API_BASE}/benchmark/run`, {
+        method: "POST",
+      });
+      const data = await response.json();
+      setBenchmark(data);
+      await loadRecords();
+      await loadAnalytics();
+    } finally {
+      setIsBenchmarkRunning(false);
+    }
+  }
+
   useEffect(() => {
     loadRecords();
     loadAnalytics();
@@ -111,6 +129,29 @@ function App() {
             {isRunning ? "Running..." : "Run Evaluation"}
           </button>
         </form>
+      </section>
+
+      <section className="benchmarkPanel">
+        <div>
+          <p className="eyebrow small">Benchmark Suite</p>
+          <h2>Run evaluation set</h2>
+          <p>
+            Execute the healthcare policy question set and generate governed
+            evidence records automatically.
+          </p>
+        </div>
+
+        <button onClick={runBenchmark} disabled={isBenchmarkRunning}>
+          {isBenchmarkRunning ? "Running Benchmark..." : "Run Benchmark"}
+        </button>
+
+        {benchmark && (
+          <div className="benchmarkResults">
+            <span>Questions: {benchmark.total_questions}</span>
+            <span>Avg Groundedness: {benchmark.average_groundedness}</span>
+            <span>Avg Relevance: {benchmark.average_relevance}</span>
+          </div>
+        )}
       </section>
 
       <section className="metrics">

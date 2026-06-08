@@ -513,3 +513,75 @@ small {
     grid-template-columns: 1fr;
   }
 }
+
+.benchmarkPanel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  margin: 0 0 24px;
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(37, 99, 235, 0.1)),
+    rgba(15, 23, 42, 0.82);
+  padding: 22px;
+}
+
+.benchmarkPanel .small {
+  font-size: 0.74rem;
+  margin: 0 0 8px;
+}
+
+.benchmarkPanel h2 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+}
+
+.benchmarkPanel p {
+  color: #b8c7dc;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.benchmarkPanel button {
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #15803d, #2563eb);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  padding: 13px 18px;
+  white-space: nowrap;
+}
+
+.benchmarkPanel button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.benchmarkResults {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.benchmarkResults span {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  background: rgba(8, 17, 31, 0.72);
+  color: #dbeafe;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 820px) {
+  .benchmarkPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .benchmarkPanel button {
+    width: 100%;
+  }
+}
