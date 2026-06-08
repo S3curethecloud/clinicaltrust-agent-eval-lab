@@ -622,3 +622,27 @@ small {
     grid-template-columns: 1fr;
   }
 }
+
+.reviewActions .exportEvidence {
+  background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.22);
+}
+
+.exportResult {
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  border-radius: 16px;
+  background: rgba(8, 17, 31, 0.72);
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.exportResult strong {
+  color: #bfdbfe;
+}
+
+.exportResult code {
+  color: #c7d2fe;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

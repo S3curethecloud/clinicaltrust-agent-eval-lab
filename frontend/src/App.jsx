@@ -17,6 +17,7 @@ function App() {
   const [isBenchmarkRunning, setIsBenchmarkRunning] = useState(false);
   const [policySets, setPolicySets] = useState(["hipaa"]);
   const [policySet, setPolicySet] = useState("hipaa");
+  const [exportResult, setExportResult] = useState(null);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -53,6 +54,18 @@ function App() {
     await loadDetail(selected.run_id);
     await loadRecords();
     await loadAnalytics();
+  }
+
+  async function exportEvidence() {
+    if (!selected?.run_id) return;
+
+    const response = await fetch(
+      `${API_BASE}/governance/evidence/${selected.run_id}/export`,
+      { method: "POST" }
+    );
+
+    const data = await response.json();
+    setExportResult(data);
   }
 
   async function runEvaluation(event) {
@@ -290,7 +303,17 @@ function App() {
                 <button className="escalate" onClick={() => updateReviewStatus("ESCALATED")}>
                   Escalate
                 </button>
+                <button className="exportEvidence" onClick={exportEvidence}>
+                  Export Evidence
+                </button>
               </div>
+
+              {exportResult?.exported && (
+                <div className="exportResult">
+                  <strong>Auditor package exported</strong>
+                  <code>{exportResult.path}</code>
+                </div>
+              )}
 
               <h3>Evaluation Scores</h3>
               <div className="scoreGrid">
