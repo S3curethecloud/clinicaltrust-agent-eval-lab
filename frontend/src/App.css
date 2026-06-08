@@ -585,3 +585,40 @@ small {
     width: 100%;
   }
 }
+
+.policySelector {
+  display: grid;
+  gap: 6px;
+}
+
+.policySelector span {
+  color: #a9bad1;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.policySelector select {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 999px;
+  background: rgba(8, 17, 31, 0.9);
+  color: #ffffff;
+  outline: none;
+  padding: 13px 16px;
+}
+
+.policySelector select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.14);
+}
+
+.runForm {
+  grid-template-columns: 190px 1fr auto;
+}
+
+@media (max-width: 980px) {
+  .runForm {
+    grid-template-columns: 1fr;
+  }
+}

@@ -15,6 +15,8 @@ function App() {
   const [analytics, setAnalytics] = useState(null);
   const [benchmark, setBenchmark] = useState(null);
   const [isBenchmarkRunning, setIsBenchmarkRunning] = useState(false);
+  const [policySets, setPolicySets] = useState(["hipaa"]);
+  const [policySet, setPolicySet] = useState("hipaa");
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -26,6 +28,12 @@ function App() {
     const response = await fetch(`${API_BASE}/governance/analytics`);
     const data = await response.json();
     setAnalytics(data);
+  }
+
+  async function loadPolicySets() {
+    const response = await fetch(`${API_BASE}/policy-sets`);
+    const data = await response.json();
+    setPolicySets(data.policy_sets || ["hipaa"]);
   }
 
   async function loadDetail(runId) {
@@ -57,7 +65,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `${API_BASE}/agent/respond?question=${encodeURIComponent(trimmed)}`
+        `${API_BASE}/agent/respond?question=${encodeURIComponent(trimmed)}&policy_set=${encodeURIComponent(policySet)}`
       );
       const record = await response.json();
       setSelected(record);
@@ -72,9 +80,10 @@ function App() {
     setIsBenchmarkRunning(true);
 
     try {
-      const response = await fetch(`${API_BASE}/benchmark/run`, {
-        method: "POST",
-      });
+      const response = await fetch(
+        `${API_BASE}/benchmark/run?policy_set=${encodeURIComponent(policySet)}`,
+        { method: "POST" }
+      );
       const data = await response.json();
       setBenchmark(data);
       await loadRecords();
@@ -87,6 +96,7 @@ function App() {
   useEffect(() => {
     loadRecords();
     loadAnalytics();
+    loadPolicySets();
   }, []);
 
   const metrics = useMemo(() => {
@@ -120,6 +130,17 @@ function App() {
         </div>
 
         <form onSubmit={runEvaluation} className="runForm">
+          <label className="policySelector">
+            <span>Policy Set</span>
+            <select value={policySet} onChange={(event) => setPolicySet(event.target.value)}>
+              {policySets.map((item) => (
+                <option key={item} value={item}>
+                  {item.replaceAll("_", " ").toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <input
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
