@@ -8,13 +8,13 @@ from backend.app.governance.evidence_store import save_evidence_record
 EVAL_FILE = Path("data/eval_sets/sample_questions.json")
 
 
-def run_benchmark() -> list[dict]:
+def run_benchmark(policy_set: str = "hipaa") -> list[dict]:
     questions = json.loads(EVAL_FILE.read_text(encoding="utf-8"))
 
     results: list[dict] = []
 
     for item in questions:
-        record = create_agent_response(item["question"])
+        record = create_agent_response(item["question"], policy_set=policy_set)
         save_evidence_record(record)
 
         results.append(
@@ -27,6 +27,7 @@ def run_benchmark() -> list[dict]:
                 "policy": record.scores.policy_compliance,
                 "risk": record.scores.hallucination_risk,
                 "reviewer_status": record.reviewer_status,
+                "policy_set": policy_set,
             }
         )
 

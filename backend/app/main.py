@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.rag.simple_retriever import retrieve
+from backend.app.rag.simple_retriever import list_policy_sets, retrieve
 from backend.app.agent.response_agent import create_agent_response
 from backend.app.governance.evidence_store import get_evidence_record, list_evidence_records, save_evidence_record
 from backend.app.governance.analytics import get_governance_analytics
@@ -24,14 +24,18 @@ def health():
 
 
 @app.get("/rag/retrieve")
-def rag_retrieve(question: str):
-    chunks = retrieve(question)
-    return {"question": question, "retrieved_chunks": chunks}
+def rag_retrieve(question: str, policy_set: str = "hipaa"):
+    chunks = retrieve(question, policy_set=policy_set)
+    return {
+        "question": question,
+        "policy_set": policy_set,
+        "retrieved_chunks": chunks,
+    }
 
 
 @app.get("/agent/respond")
-def agent_respond(question: str):
-    record = create_agent_response(question)
+def agent_respond(question: str, policy_set: str = "hipaa"):
+    record = create_agent_response(question, policy_set=policy_set)
     save_evidence_record(record)
     return record
 
@@ -56,8 +60,8 @@ def governance_analytics():
     return get_governance_analytics()
 
 @app.post("/benchmark/run")
-def benchmark_run():
-    results = run_benchmark()
+def benchmark_run(policy_set: str = "hipaa"):
+    results = run_benchmark(policy_set=policy_set)
 
     total = len(results)
 
@@ -77,3 +81,8 @@ def benchmark_run():
         "average_relevance": avg_relevance,
         "results": results,
     }
+
+
+@app.get("/policy-sets")
+def policy_sets():
+    return {"policy_sets": list_policy_sets()}

@@ -20,8 +20,8 @@ def generate_answer(question: str, context_text: str) -> str:
     )
 
 
-def create_agent_response(question: str) -> EvidenceRecord:
-    chunks = retrieve(question)
+def create_agent_response(question: str, policy_set: str = "hipaa") -> EvidenceRecord:
+    chunks = retrieve(question, policy_set=policy_set)
     context_text = "\n\n".join(chunk.text for chunk in chunks)
     answer = generate_answer(question, context_text)
 
