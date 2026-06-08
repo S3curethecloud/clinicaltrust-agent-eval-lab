@@ -1,7 +1,8 @@
 from uuid import uuid4
 
 from backend.app.rag.simple_retriever import retrieve
-from backend.app.schemas.evidence import EvidenceRecord, EvaluationScores
+from backend.app.schemas.evidence import EvidenceRecord
+from backend.app.evals.scorers import evaluate_response
 
 
 def generate_answer(question: str, context_text: str) -> str:
@@ -26,12 +27,11 @@ def create_agent_response(question: str) -> EvidenceRecord:
 
     citations = [chunk.source for chunk in chunks]
 
-    scores = EvaluationScores(
-        groundedness=0.0,
-        relevance=0.0,
-        citation_coverage=0.0,
-        hallucination_risk="MEDIUM",
-        policy_compliance="WARN",
+    scores = evaluate_response(
+        question=question,
+        answer=answer,
+        chunks=chunks,
+        citations=citations,
     )
 
     return EvidenceRecord(
