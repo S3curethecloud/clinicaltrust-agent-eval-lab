@@ -1,0 +1,12 @@
+[
+  {
+    "id": "q001",
+    "question": "Can staff include patient identifiers in AI prompts?",
+    "expected_policy": "Staff should not include unnecessary patient identifiers in AI prompts."
+  },
+  {
+    "id": "q002",
+    "question": "What does minimum necessary mean?",
+    "expected_policy": "Only the minimum protected health information required for an authorized task should be used."
+  }
+]
