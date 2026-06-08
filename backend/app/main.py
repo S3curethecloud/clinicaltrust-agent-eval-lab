@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from backend.app.rag.simple_retriever import retrieve
 from backend.app.agent.response_agent import create_agent_response
 from backend.app.governance.evidence_store import list_evidence_records, save_evidence_record
+from backend.app.reviewer.workflow import update_reviewer_status
 
 app = FastAPI(title="ClinicalTrust Agent Evaluation Lab")
 
@@ -27,3 +28,8 @@ def agent_respond(question: str):
 @app.get("/governance/evidence")
 def governance_evidence():
     return {"records": list_evidence_records()}
+
+
+@app.post("/reviewer/status")
+def reviewer_status(run_id: str, status: str):
+    return update_reviewer_status(run_id, status)
