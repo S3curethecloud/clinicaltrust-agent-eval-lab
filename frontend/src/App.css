@@ -229,3 +229,125 @@ small {
     padding: 14px;
   }
 }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 24px;
+}
+
+.metricCard {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 18px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.22);
+}
+
+.metricCard span {
+  color: #a9bad1;
+  font-size: 0.88rem;
+}
+
+.metricCard strong {
+  display: block;
+  color: #ffffff;
+  font-size: 2rem;
+  margin-top: 6px;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.badge.good {
+  color: #86efac;
+  background: rgba(22, 163, 74, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+.badge.warn {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+}
+
+.badge.bad {
+  color: #fca5a5;
+  background: rgba(220, 38, 38, 0.14);
+  border: 1px solid rgba(248, 113, 113, 0.22);
+}
+
+.badge.neutral {
+  color: #bfdbfe;
+  background: rgba(37, 99, 235, 0.14);
+  border: 1px solid rgba(96, 165, 250, 0.22);
+}
+
+.recordCard.active {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.3), 0 18px 50px rgba(37, 99, 235, 0.18);
+}
+
+.scoreGrid div {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 16px;
+  background: rgba(8, 17, 31, 0.72);
+  padding: 14px;
+}
+
+.scoreGrid div span {
+  display: block;
+  color: #a9bad1;
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+}
+
+.scoreGrid div strong {
+  color: #ffffff;
+  font-size: 1.25rem;
+}
+
+.citationList {
+  display: grid;
+  gap: 8px;
+}
+
+.citationList code {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 12px;
+  background: rgba(8, 17, 31, 0.74);
+  color: #c7d2fe;
+  padding: 10px 12px;
+}
+
+@media (max-width: 980px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .metricCard {
+    padding: 16px;
+  }
+}
