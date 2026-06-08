@@ -1,10 +1,19 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from backend.app.rag.simple_retriever import retrieve
 from backend.app.agent.response_agent import create_agent_response
 from backend.app.governance.evidence_store import get_evidence_record, list_evidence_records, save_evidence_record
 from backend.app.reviewer.workflow import update_reviewer_status
 
 app = FastAPI(title="ClinicalTrust Agent Evaluation Lab")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/health")
