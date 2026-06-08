@@ -10,6 +10,8 @@ function Badge({ children, tone = "neutral" }) {
 function App() {
   const [records, setRecords] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [question, setQuestion] = useState("Can staff include patient identifiers in AI prompts?");
+  const [isRunning, setIsRunning] = useState(false);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -35,6 +37,26 @@ function App() {
     await loadRecords();
   }
 
+  async function runEvaluation(event) {
+    event.preventDefault();
+
+    const trimmed = question.trim();
+    if (!trimmed) return;
+
+    setIsRunning(true);
+
+    try {
+      const response = await fetch(
+        `${API_BASE}/agent/respond?question=${encodeURIComponent(trimmed)}`
+      );
+      const record = await response.json();
+      setSelected(record);
+      await loadRecords();
+    } finally {
+      setIsRunning(false);
+    }
+  }
+
   useEffect(() => {
     loadRecords();
   }, []);
@@ -57,6 +79,28 @@ function App() {
           Review RAG answers, evaluation scores, citations, hallucination risk,
           and governance evidence records before trust is granted.
         </p>
+      </section>
+
+      <section className="runPanel">
+        <div>
+          <p className="eyebrow small">Run New Evaluation</p>
+          <h2>Test a healthcare AI question</h2>
+          <p>
+            Generate a new governed agent response, score it, persist evidence,
+            and route it for reviewer action.
+          </p>
+        </div>
+
+        <form onSubmit={runEvaluation} className="runForm">
+          <input
+            value={question}
+            onChange={(event) => setQuestion(event.target.value)}
+            placeholder="Ask a healthcare policy question..."
+          />
+          <button type="submit" disabled={isRunning}>
+            {isRunning ? "Running..." : "Run Evaluation"}
+          </button>
+        </form>
       </section>
 
       <section className="metrics">

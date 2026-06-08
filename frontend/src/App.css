@@ -393,3 +393,85 @@ small {
     grid-template-columns: 1fr;
   }
 }
+
+.runPanel {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 520px);
+  gap: 20px;
+  align-items: end;
+  margin: 0 0 24px;
+  border: 1px solid rgba(96, 165, 250, 0.22);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(124, 58, 237, 0.1)),
+    rgba(15, 23, 42, 0.82);
+  padding: 22px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+}
+
+.runPanel .small {
+  font-size: 0.74rem;
+  margin: 0 0 8px;
+}
+
+.runPanel h2 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+}
+
+.runPanel p {
+  color: #b8c7dc;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.runForm {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.runForm input {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 999px;
+  background: rgba(8, 17, 31, 0.8);
+  color: #ffffff;
+  outline: none;
+  padding: 13px 16px;
+}
+
+.runForm input::placeholder {
+  color: #7f91aa;
+}
+
+.runForm input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.14);
+}
+
+.runForm button {
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  padding: 13px 18px;
+  white-space: nowrap;
+}
+
+.runForm button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+@media (max-width: 820px) {
+  .runPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .runForm {
+    grid-template-columns: 1fr;
+  }
+}
