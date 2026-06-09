@@ -335,6 +335,21 @@ function App() {
                 </div>
               )}
 
+              <h3>Audit Trail</h3>
+              <div className="auditTrail">
+                {selected.audit_trail?.length ? (
+                  selected.audit_trail.map((event, index) => (
+                    <div className="auditEvent" key={`${event.timestamp}-${index}`}>
+                      <strong>{event.action}</strong>
+                      <span>{event.actor}</span>
+                      <small>{new Date(event.timestamp).toLocaleString()}</small>
+                    </div>
+                  ))
+                ) : (
+                  <p className="muted">No audit events recorded yet.</p>
+                )}
+              </div>
+
               <h3>Evaluation Scores</h3>
               <div className="scoreGrid">
                 <div><span>Groundedness</span><strong>{selected.scores?.groundedness}</strong></div>

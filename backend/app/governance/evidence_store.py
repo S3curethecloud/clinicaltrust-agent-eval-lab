@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from backend.app.governance.gates import evaluate_governance_decision
+from backend.app.governance.audit_trail import append_audit_event, get_audit_trail
 
 from backend.app.schemas.evidence import EvidenceRecord
 
@@ -16,6 +17,18 @@ def save_evidence_record(record: EvidenceRecord) -> Path:
     output_path.write_text(
         json.dumps(record.model_dump(), indent=2),
         encoding="utf-8",
+    )
+
+    append_audit_event(
+        run_id=record.run_id,
+        action="EVIDENCE_GENERATED",
+        actor="agent",
+        details={
+            "question": record.question,
+            "reviewer_status": record.reviewer_status,
+            "hallucination_risk": record.scores.hallucination_risk,
+            "policy_compliance": record.scores.policy_compliance,
+        },
     )
 
     return output_path
@@ -56,5 +69,6 @@ def get_evidence_record(run_id: str) -> dict:
     payload["found"] = True
     payload["path"] = str(evidence_path)
     payload["governance_decision"] = evaluate_governance_decision(payload)
+    payload["audit_trail"] = get_audit_trail(run_id)
 
     return payload

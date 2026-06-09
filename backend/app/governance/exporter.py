@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from backend.app.governance.evidence_store import get_evidence_record
+from backend.app.governance.audit_trail import append_audit_event
 
 
 EXPORT_DIR = Path("evidence/exports")
@@ -36,6 +37,16 @@ def export_evidence_package(run_id: str) -> dict:
     output_path.write_text(
         json.dumps(package, indent=2),
         encoding="utf-8",
+    )
+
+    append_audit_event(
+        run_id=run_id,
+        action="AUDITOR_PACKAGE_EXPORTED",
+        actor="auditor",
+        details={
+            "export_path": str(output_path),
+            "package_version": package["package_version"],
+        },
     )
 
     return {

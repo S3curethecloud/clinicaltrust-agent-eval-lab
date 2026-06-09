@@ -4,6 +4,7 @@ from backend.app.rag.simple_retriever import list_policy_sets, retrieve
 from backend.app.agent.response_agent import create_agent_response
 from backend.app.governance.evidence_store import get_evidence_record, list_evidence_records, save_evidence_record
 from backend.app.governance.analytics import get_governance_analytics
+from backend.app.governance.audit_trail import get_audit_trail
 from backend.app.governance.exporter import export_evidence_package
 from backend.app.reviewer.workflow import update_reviewer_status
 from backend.app.benchmark.runner import run_benchmark
@@ -92,3 +93,8 @@ def policy_sets():
 @app.post("/governance/evidence/{run_id}/export")
 def governance_evidence_export(run_id: str):
     return export_evidence_package(run_id)
+
+
+@app.get("/governance/evidence/{run_id}/audit")
+def governance_evidence_audit(run_id: str):
+    return {"run_id": run_id, "audit_trail": get_audit_trail(run_id)}

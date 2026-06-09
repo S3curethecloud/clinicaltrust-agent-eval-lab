@@ -12,3 +12,6 @@ evidence/runs/*.json
 
 # Runtime-generated auditor exports
 evidence/exports/*.json
+
+# Runtime-generated audit trail logs
+evidence/audit/*.jsonl
