@@ -19,6 +19,7 @@ function App() {
   const [policySet, setPolicySet] = useState("hipaa");
   const [exportResult, setExportResult] = useState(null);
   const [verificationResult, setVerificationResult] = useState(null);
+  const [tamperResult, setTamperResult] = useState(null);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -80,6 +81,24 @@ function App() {
 
     const data = await response.json();
     setVerificationResult(data);
+    await loadDetail(selected.run_id);
+  }
+
+  async function tamperEvidencePackage() {
+    if (!selected?.run_id) return;
+
+    const response = await fetch(
+      `${API_BASE}/governance/evidence/${selected.run_id}/tamper-demo`,
+      { method: "POST" }
+    );
+
+    const data = await response.json();
+    setTamperResult(data);
+
+    if (data.tampered) {
+      await verifyEvidencePackage();
+    }
+
     await loadDetail(selected.run_id);
   }
 
@@ -344,6 +363,9 @@ function App() {
                 <button className="verifyPackage" onClick={verifyEvidencePackage}>
                   Verify Package
                 </button>
+                <button className="tamperPackage" onClick={tamperEvidencePackage}>
+                  Tamper Demo
+                </button>
               </div>
 
               {exportResult?.exported && (
@@ -359,6 +381,13 @@ function App() {
                       <code>{exportResult.package.export_manifest.package_hash}</code>
                     </div>
                   )}
+                </div>
+              )}
+
+              {tamperResult?.tampered && (
+                <div className="tamperResult">
+                  <strong>Tamper demo applied</strong>
+                  <span>The exported package was intentionally modified after export.</span>
                 </div>
               )}
 

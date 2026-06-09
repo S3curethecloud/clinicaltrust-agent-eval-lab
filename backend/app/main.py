@@ -7,6 +7,7 @@ from backend.app.governance.analytics import get_governance_analytics
 from backend.app.governance.audit_trail import get_audit_trail
 from backend.app.governance.exporter import export_evidence_package
 from backend.app.governance.verifier import verify_evidence_package
+from backend.app.governance.tamper_demo import tamper_evidence_package
 from backend.app.reviewer.workflow import update_reviewer_status
 from backend.app.benchmark.runner import run_benchmark
 
@@ -104,3 +105,8 @@ def governance_evidence_audit(run_id: str):
 @app.post("/governance/evidence/{run_id}/verify")
 def governance_evidence_verify(run_id: str):
     return verify_evidence_package(run_id)
+
+
+@app.post("/governance/evidence/{run_id}/tamper-demo")
+def governance_evidence_tamper_demo(run_id: str):
+    return tamper_evidence_package(run_id)
