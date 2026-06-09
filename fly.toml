@@ -1,4 +1,4 @@
-app = "clinicaltrust-agent-eval-lab-api"
+app = "clinicaltrust-api-securethecloud"
 primary_region = "iad"
 
 [build]

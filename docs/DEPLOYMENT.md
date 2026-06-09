@@ -33,12 +33,12 @@ fly deploy
 
 If the app name in fly.toml is unavailable, change:
 
-app = "clinicaltrust-agent-eval-lab-api"
+app = "clinicaltrust-api-securethecloud"
 
 Then deploy again.
 
 Verify
-curl "https://clinicaltrust-agent-eval-lab-api.fly.dev/health"
+curl "https://clinicaltrust-api-securethecloud.fly.dev/health"
 
 Expected:
 
@@ -55,7 +55,7 @@ Environment Variable
 
 Set this in Cloudflare Pages:
 
-VITE_API_BASE_URL=https://clinicaltrust-agent-eval-lab-api.fly.dev
+VITE_API_BASE_URL=https://clinicaltrust-api-securethecloud.fly.dev
 CORS
 
 The backend reads allowed origins from:
