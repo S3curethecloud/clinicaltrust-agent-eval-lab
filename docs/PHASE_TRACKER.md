@@ -62,3 +62,38 @@ Safety boundary:
 - Synthetic evidence only.
 - No real PHI.
 - Not a production clinical decision system.
+
+Phase 19 — Public Launch Polish / LinkedIn Demo Package
+
+Status: Complete
+
+ Live public frontend custom domain recorded.
+ Live public backend API URL recorded.
+ README public demo testing steps added.
+ Public launch package added.
+ LinkedIn-ready demo post added.
+ Custom domain activated.
+
+Public frontend:
+
+https://clinicaltrust.securethecloud.dev
+
+Public backend:
+
+https://clinicaltrust-api-securethecloud.fly.dev
+
+Demo validation:
+
+Run evaluation.
+Export auditor package.
+Verify evidence package.
+Apply tamper demo.
+Confirm verification failure.
+Confirm audit trail events.
+
+Safety boundary:
+
+Synthetic evidence only.
+No real PHI.
+No medical advice.
+Not a production clinical decision system.

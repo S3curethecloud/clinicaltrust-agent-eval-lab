@@ -66,3 +66,45 @@ The public demo uses synthetic healthcare governance scenarios only. It does not
 The demo flow shows a full AI governance evidence lifecycle: policy-grounded retrieval, agent response generation, deterministic evaluation, governance gates, reviewer workflow, auditor evidence package export, SHA-256 package verification, and tamper detection.
 
 See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for deployment instructions.
+
+## Live Public Demo
+
+Frontend dashboard:
+
+```text
+https://clinicaltrust.securethecloud.dev
+
+Backend API:
+
+https://clinicaltrust-api-securethecloud.fly.dev
+
+Health check:
+
+https://clinicaltrust-api-securethecloud.fly.dev/health
+How to Test the Public Demo
+Open the frontend dashboard.
+Run the default HIPAA evaluation question.
+Select the generated evidence run.
+Export the auditor evidence package.
+Verify the package integrity.
+Run the tamper demo.
+Confirm verification fails after tampering.
+
+Expected verification result before tampering:
+
+Package Verification: VERIFIED
+Evidence Hash Valid: true
+Package Hash Valid: true
+
+Expected verification result after tampering:
+
+Package Verification: FAILED
+Evidence Hash Valid: false
+Package Hash Valid: false
+
+Public demo boundary:
+
+Synthetic governance evidence only.
+No real PHI.
+No medical advice.
+Not a production clinical decision system.
