@@ -66,6 +66,7 @@ function App() {
 
     const data = await response.json();
     setExportResult(data);
+    await loadDetail(selected.run_id);
   }
 
   async function runEvaluation(event) {
