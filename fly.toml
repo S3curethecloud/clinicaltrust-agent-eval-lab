@@ -7,7 +7,7 @@ primary_region = "iad"
 [env]
   PORT = "8080"
   DEMO_MODE = "true"
-  ALLOWED_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,https://clinicaltrust-agent-eval-lab.pages.dev"
+  ALLOWED_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,https://clinicaltrust-agent-eval-lab.pages.dev,https://clinicaltrust.securethecloud.dev"
 
 [http_service]
   internal_port = 8080

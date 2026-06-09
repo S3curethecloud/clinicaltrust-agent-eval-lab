@@ -64,7 +64,7 @@ ALLOWED_ORIGINS
 
 Example Fly value:
 
-http://localhost:5173,http://127.0.0.1:5173,https://clinicaltrust-agent-eval-lab.pages.dev
+http://localhost:5173,http://127.0.0.1:5173,https://clinicaltrust.securethecloud.dev
 
 If using a custom Cloudflare Pages domain, append that domain to ALLOWED_ORIGINS.
 
