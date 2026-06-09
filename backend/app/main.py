@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.rag.simple_retriever import list_policy_sets, retrieve
@@ -11,11 +12,29 @@ from backend.app.governance.tamper_demo import tamper_evidence_package
 from backend.app.reviewer.workflow import update_reviewer_status
 from backend.app.benchmark.runner import run_benchmark
 
+DEFAULT_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://clinicaltrust-agent-eval-lab.pages.dev",
+]
+
+
+def get_allowed_origins() -> list[str]:
+    configured = os.getenv("ALLOWED_ORIGINS", "")
+    configured_origins = [
+        origin.strip()
+        for origin in configured.split(",")
+        if origin.strip()
+    ]
+
+    return sorted(set(DEFAULT_ALLOWED_ORIGINS + configured_origins))
+
+
 app = FastAPI(title="ClinicalTrust Agent Evaluation Lab")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

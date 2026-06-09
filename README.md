@@ -53,3 +53,16 @@ Reviewer Dashboard
 Build Phases
 
 See docs/PHASE_TRACKER.md.
+
+## Public Demo Deployment
+
+ClinicalTrust Agent Evaluation Lab is designed for a public portfolio demo using a split deployment model:
+
+- Backend API on Fly.io
+- Frontend dashboard on Cloudflare Pages
+
+The public demo uses synthetic healthcare governance scenarios only. It does not process real PHI, does not provide medical advice, and is not a production clinical decision system.
+
+The demo flow shows a full AI governance evidence lifecycle: policy-grounded retrieval, agent response generation, deterministic evaluation, governance gates, reviewer workflow, auditor evidence package export, SHA-256 package verification, and tamper detection.
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for deployment instructions.

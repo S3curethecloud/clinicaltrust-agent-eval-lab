@@ -38,3 +38,27 @@ Phase 6 - Dashboard
  Evaluation run history
  Evidence explorer
  Reviewer workflow
+
+## Phase 16 — Public Demo Deployment Prep
+
+Status: Complete
+
+- [x] Dockerfile added for FastAPI backend.
+- [x] Fly.io `fly.toml` deployment config added.
+- [x] Frontend API base URL moved to `VITE_API_BASE_URL`.
+- [x] Production CORS allowlist added.
+- [x] Public demo disclaimer banner added.
+- [x] Mobile polish added for dashboard layout, action buttons, and hash wrapping.
+- [x] Public deployment instructions added.
+- [x] README public demo section added.
+
+Deployment target:
+
+- Backend API: Fly.io
+- Frontend dashboard: Cloudflare Pages
+
+Safety boundary:
+
+- Synthetic evidence only.
+- No real PHI.
+- Not a production clinical decision system.
