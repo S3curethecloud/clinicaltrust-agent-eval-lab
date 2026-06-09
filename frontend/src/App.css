@@ -748,3 +748,35 @@ small {
   padding: 8px;
   overflow-wrap: anywhere;
 }
+
+.reviewActions .verifyPackage {
+  background: linear-gradient(135deg, #0f766e, #2563eb);
+  box-shadow: 0 12px 28px rgba(20, 184, 166, 0.2);
+}
+
+.verificationResult {
+  border-radius: 16px;
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(8, 17, 31, 0.72);
+}
+
+.verificationResult.valid {
+  border-color: rgba(74, 222, 128, 0.35);
+  background: rgba(22, 163, 74, 0.12);
+}
+
+.verificationResult.invalid {
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.verificationResult strong {
+  color: #ffffff;
+}
+
+.verificationResult span {
+  color: #dbeafe;
+}

@@ -18,6 +18,7 @@ function App() {
   const [policySets, setPolicySets] = useState(["hipaa"]);
   const [policySet, setPolicySet] = useState("hipaa");
   const [exportResult, setExportResult] = useState(null);
+  const [verificationResult, setVerificationResult] = useState(null);
 
   async function loadRecords() {
     const response = await fetch(`${API_BASE}/governance/evidence`);
@@ -66,6 +67,19 @@ function App() {
 
     const data = await response.json();
     setExportResult(data);
+    await loadDetail(selected.run_id);
+  }
+
+  async function verifyEvidencePackage() {
+    if (!selected?.run_id) return;
+
+    const response = await fetch(
+      `${API_BASE}/governance/evidence/${selected.run_id}/verify`,
+      { method: "POST" }
+    );
+
+    const data = await response.json();
+    setVerificationResult(data);
     await loadDetail(selected.run_id);
   }
 
@@ -327,6 +341,9 @@ function App() {
                 <button className="exportEvidence" onClick={exportEvidence}>
                   Export Evidence
                 </button>
+                <button className="verifyPackage" onClick={verifyEvidencePackage}>
+                  Verify Package
+                </button>
               </div>
 
               {exportResult?.exported && (
@@ -342,6 +359,16 @@ function App() {
                       <code>{exportResult.package.export_manifest.package_hash}</code>
                     </div>
                   )}
+                </div>
+              )}
+
+              {verificationResult && (
+                <div className={`verificationResult ${verificationResult.verified ? "valid" : "invalid"}`}>
+                  <strong>
+                    Package Verification: {verificationResult.verified ? "VERIFIED" : "FAILED"}
+                  </strong>
+                  <span>Evidence Hash Valid: {String(verificationResult.evidence_hash_valid)}</span>
+                  <span>Package Hash Valid: {String(verificationResult.package_hash_valid)}</span>
                 </div>
               )}
 

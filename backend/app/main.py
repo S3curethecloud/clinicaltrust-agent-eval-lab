@@ -6,6 +6,7 @@ from backend.app.governance.evidence_store import get_evidence_record, list_evid
 from backend.app.governance.analytics import get_governance_analytics
 from backend.app.governance.audit_trail import get_audit_trail
 from backend.app.governance.exporter import export_evidence_package
+from backend.app.governance.verifier import verify_evidence_package
 from backend.app.reviewer.workflow import update_reviewer_status
 from backend.app.benchmark.runner import run_benchmark
 
@@ -98,3 +99,8 @@ def governance_evidence_export(run_id: str):
 @app.get("/governance/evidence/{run_id}/audit")
 def governance_evidence_audit(run_id: str):
     return {"run_id": run_id, "audit_trail": get_audit_trail(run_id)}
+
+
+@app.post("/governance/evidence/{run_id}/verify")
+def governance_evidence_verify(run_id: str):
+    return verify_evidence_package(run_id)
