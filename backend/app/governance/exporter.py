@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from backend.app.governance.evidence_store import get_evidence_record
+from backend.app.governance.integrity import build_export_manifest
 from backend.app.governance.audit_trail import append_audit_event
 
 
@@ -33,6 +34,8 @@ def export_evidence_package(run_id: str) -> dict:
         "evidence": record,
     }
 
+    export_manifest = build_export_manifest(package, record)
+
     output_path = EXPORT_DIR / f"{run_id}.auditor_package.json"
     output_path.write_text(
         json.dumps(package, indent=2),
@@ -46,6 +49,9 @@ def export_evidence_package(run_id: str) -> dict:
         details={
             "export_path": str(output_path),
             "package_version": package["package_version"],
+            "evidence_hash": export_manifest["evidence_hash"],
+            "package_hash": export_manifest["package_hash"],
+            "hash_algorithm": export_manifest["hash_algorithm"],
         },
     )
 

@@ -725,3 +725,26 @@ small {
 .auditEvent small {
   color: #94a3b8;
 }
+
+.hashGrid {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.hashGrid span {
+  color: #bfdbfe;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hashGrid code {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 10px;
+  background: rgba(8, 17, 31, 0.78);
+  color: #c7d2fe;
+  padding: 8px;
+  overflow-wrap: anywhere;
+}

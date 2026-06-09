@@ -333,6 +333,15 @@ function App() {
                 <div className="exportResult">
                   <strong>Auditor package exported</strong>
                   <code>{exportResult.path}</code>
+
+                  {exportResult.package?.export_manifest && (
+                    <div className="hashGrid">
+                      <span>Evidence Hash</span>
+                      <code>{exportResult.package.export_manifest.evidence_hash}</code>
+                      <span>Package Hash</span>
+                      <code>{exportResult.package.export_manifest.package_hash}</code>
+                    </div>
+                  )}
                 </div>
               )}
 
