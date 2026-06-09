@@ -81,7 +81,7 @@ function App() {
         `${API_BASE}/agent/respond?question=${encodeURIComponent(trimmed)}&policy_set=${encodeURIComponent(policySet)}`
       );
       const record = await response.json();
-      setSelected(record);
+      await loadDetail(record.run_id);
       await loadRecords();
       await loadAnalytics();
     } finally {
